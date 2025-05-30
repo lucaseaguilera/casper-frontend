@@ -32,8 +32,24 @@ function Login() {
     }
     
     if (!hasError) {
-      // llamar api
-      console.log('Form submitted', { email, password });
+      // Simulate API login request
+      new Promise((resolve) => {
+        setTimeout(() => {
+          if (email === 'roque@mail.com' && password === '123456') {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        }, 1000);
+      }).then((success) => {
+        if (success) {
+          console.log('Login exitoso');
+          localStorage.setItem('authenticated', 'true');
+          window.location.href = '/dashboard';
+        } else {
+          setPasswordError('Usuario o contraseña incorrectos');
+        }
+      });
     }
   };
 

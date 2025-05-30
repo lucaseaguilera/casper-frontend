@@ -17,18 +17,34 @@ const theme = createTheme({
   colorScheme: 'dark',
 });
 
+const isAuthenticated = () => {
+  // Simulate login status from localStorage
+  return localStorage.getItem('authenticated') === 'true';
+};
+
+const RequireAuth = ({ children }: { children: JSX.Element }) => {
+  return isAuthenticated() ? children : <Login />;
+};
+
 function App() {
   return (
     <MantineProvider withNormalizeCSS withGlobalStyles theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Layout />}>
-            <Route index element={<Dashboard />} />
+          <Route path="/" element={<Login />} />
+          <Route
+            path="/*"
+            element={
+              <RequireAuth>
+                <Layout />
+              </RequireAuth>
+            }
+          >
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="clientes" element={<Clientes />} />
-            <Route path="/clientes/:id" element={<ClienteDetalle />} />
-            <Route path="/clientes/new" element={<ClienteWizard />} />
-            <Route path="/clientes/:id/edit" element={<ClienteWizard />} />
+            <Route path="clientes/:id" element={<ClienteDetalle />} />
+            <Route path="clientes/new" element={<ClienteWizard />} />
+            <Route path="clientes/:id/edit" element={<ClienteWizard />} />
             <Route path="configuracion" element={<Configuracion />} />
             <Route path="perfil" element={<UsuarioPerfil />} />
           </Route>
