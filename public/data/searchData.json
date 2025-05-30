@@ -1,0 +1,11 @@
+{
+  "clients": [
+    { "id": 1, "name": "Sergio Benítez" },
+    { "id": 2, "name": "Benedicta Vargas" }
+  ],
+  "pets": [
+    { "id": 101, "name": "Benji", "clienteId": 1 },
+    { "id": 102, "name": "Bentley", "clienteId": 2 },
+    { "id": 103, "name": "Benito", "clienteId": 1 }
+  ]
+}

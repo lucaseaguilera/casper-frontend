@@ -1,0 +1,12 @@
+// src/styles/base/_colors.scss
+@use '../abstracts/variables' as vars;
+
+.color-primary {
+  color: vars.$color-primary;
+}
+.color-white {
+  color: vars.$color-white;
+}
+.color-placeholder {
+  color: vars.$text-muted;
+}

@@ -1,0 +1,37 @@
+@use '../abstracts/variables' as vars;
+
+.pet-list{
+    padding:1rem;
+    border-radius: vars.$radius-lg;
+    border: 1px solid vars.$text-muted;
+    .avatar-group{
+        opacity: .5;
+        &.pet-active{
+            opacity: 1;
+        }
+    }
+}
+.pet-edit-avatar{
+    position: relative;
+    .upload-avatar{
+        position: absolute;
+        bottom: 16px;
+        right: -8px;
+    }
+}
+.settings{
+    padding:1.5rem;
+    border-radius: vars.$radius-lg;
+    border: 1px solid vars.$text-muted;
+    .checkbox-container{
+        @media(max-width:540px){
+            flex-direction: column;
+        }
+        .mantine-Stack-root{
+            @media(max-width:540px){
+                width: 100%;
+                max-width: inherit;
+            }
+        }
+    }
+}

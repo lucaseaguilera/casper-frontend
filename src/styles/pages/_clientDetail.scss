@@ -1,0 +1,61 @@
+@use '../abstracts/variables' as vars;
+  
+.client-pets{
+  .mantine-Tabs-tab{
+    opacity: .5;
+    .avatar-group{
+      p{
+        color: vars.$text-muted;
+      }
+    }
+    &[data-active='true'],
+    &:hover{
+      opacity: 1;
+      background-color: transparent;
+      .avatar-group{
+        .avatar{
+          border-color: vars.$color-white;
+        }
+        p{
+          color: vars.$color-white;
+        }
+      }
+    }
+  }
+}
+.border-right{
+  border-right: 1px solid vars.$border-separator;
+  @media(max-width:991px){
+    border: none;
+  }
+}
+.profile{
+  padding:24px!important;
+}
+
+.page-full-height {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-tabs {
+  flex: 1;           
+  overflow: hidden;           
+}
+
+.page-grid {
+  height: 100%;                 
+  display: flex;
+}
+
+.page-grid .mantine-Grid-col {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+
+

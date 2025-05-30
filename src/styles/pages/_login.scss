@@ -1,0 +1,53 @@
+@use '../abstracts/variables' as vars;
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(#2A3240, #101113);
+  flex-direction: column;
+  gap: 2rem;
+  padding:1rem;
+    @media(max-width:767px){
+     justify-content: flex-start;
+     padding-top: 2rem;
+    }
+  &-brand{
+    width: auto;
+    height: 5rem;
+    margin-bottom: 3rem;
+    @media(max-width:767px){
+      height: 4rem;
+    }
+  }
+  &-box {
+    background-color: vars.$bg-card;
+    padding: 5rem 3rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    position: relative;
+    @media(max-width:767px){
+     padding: 3rem 1.5rem 1rem;
+     border-radius: 8px;
+    }
+  }  
+  &-avatar{
+    position: absolute;
+    top: -60px;
+    left: calc(50% - 60px);
+    width: 120px;
+    height: 120px;
+    background-color: vars.$bg-card;
+    @media(max-width:767px){
+      top: -40px;
+      left: calc(50% - 40px);
+      width: 80px;
+      height: 80px;
+    }
+  }
+  &-title {
+    text-align: center;
+  }
+}

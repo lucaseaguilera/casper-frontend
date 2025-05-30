@@ -1,0 +1,119 @@
+@use '../abstracts/variables' as vars;
+
+.input{
+    position: relative;
+    width: 100%;
+    .mantine-TextInput-label{
+        color: vars.$text-label;
+        font-size: 0.875rem;
+    }
+    .mantine-Input-wrapper{
+        width: 100%;
+        input{
+            width: 100%;
+            border: 1px solid #515862;
+            border-radius: vars.$radius-md;
+            font-size: 1rem;
+            color: vars.$color-white;
+            background-color:  vars.$gray-bg;
+            &::placeholder{
+                color: #ffffff50;
+            }
+            &:focus{
+                border-color: vars.$border-active;
+                outline: none;
+                color:vars.$color-white;
+            }
+            &[data-error='true']{
+                border-color: vars.$alert-red;
+                color: vars.$alert-red;
+            }
+        }
+    }
+    .mantine-PasswordInput-wrapper{
+        .mantine-Input-input{
+            background: none;
+            border: 0;
+            &[data-error='true']{
+                input{
+                    border-color: vars.$alert-red;
+                    color: vars.$alert-red;
+                }
+                
+            }
+        }
+    }
+    .mantine-InputWrapper-error{
+        font-size: small;
+    }
+}
+.select{
+    position: relative;
+    .mantine-Select-label{
+        color: vars.$text-label;
+        font-size: 0.875rem;
+    }
+    .mantine-InputWrapper-error{
+        font-size: small;
+    }
+    input{
+        width: 100%;
+        border: 1px solid #515862;
+        border-radius: vars.$radius-md;
+        font-size: 1rem;
+        color: vars.$color-white;
+        background-color:  vars.$gray-bg;
+        &::placeholder{
+            color: #ffffff50;
+        }
+        &:focus{
+            border-color: vars.$border-active;
+            outline: none;
+            color:vars.$color-white;
+        }
+        &[data-error='true']{
+            border-color: vars.$alert-red;
+            color: vars.$alert-red;
+        }
+        &[data-disabled]{
+            background-color:vars.$overlay-light;
+        }
+    }
+}
+.mantine-Select-dropdown{
+    transition: none;
+    border: 1px solid #515862;
+    border-radius: vars.$radius-md;
+    font-size: 1rem;
+    color: vars.$color-white;
+    background-color:  vars.$gray-bg;
+    .mantine-Select-option:hover{
+        background-color:vars.$overlay-light;
+    }
+}
+
+.input-search{
+    input{
+        padding: 0.75rem 1.25rem;
+        border: 1px solid transparent;
+        border-radius: 32px;
+        font-size: 1rem;
+        background-color: vars.$gray-bg;
+        width: 100%;
+        color:vars.$color-white;
+        padding-left: 48px;
+        height: auto;
+        max-height: 48px;
+        &::placeholder{
+            color: #ffffff50;
+        }
+        &:focus{
+            border-color: vars.$border-active;
+            outline: none;
+            color:vars.$color-white;
+        }
+    }
+    .icon-search{
+        opacity: 0.5;
+    }
+}

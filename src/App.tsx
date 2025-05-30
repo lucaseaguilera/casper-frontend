@@ -1,0 +1,41 @@
+// src/App.tsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import '@mantine/core/styles.css';
+import './styles/styles.scss';
+import Layout from './components/Layout';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import Clientes from './pages/Clientes';
+import ClienteWizard from './pages/ClienteWizard';
+import ClienteDetalle from './pages/ClienteDetalle';
+import Configuracion from './pages/Configuracion';
+import UsuarioPerfil from './pages/UsuarioPerfil';
+import { createTheme, MantineProvider } from '@mantine/core';
+
+const theme = createTheme({
+  fontFamily: 'Roboto, sans-serif',
+  colorScheme: 'dark',
+});
+
+function App() {
+  return (
+    <MantineProvider withNormalizeCSS withGlobalStyles theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="clientes" element={<Clientes />} />
+            <Route path="/clientes/:id" element={<ClienteDetalle />} />
+            <Route path="/clientes/new" element={<ClienteWizard />} />
+            <Route path="/clientes/:id/edit" element={<ClienteWizard />} />
+            <Route path="configuracion" element={<Configuracion />} />
+            <Route path="perfil" element={<UsuarioPerfil />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </MantineProvider>
+  );
+}
+
+export default App;

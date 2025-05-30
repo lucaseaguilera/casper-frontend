@@ -1,0 +1,12 @@
+@use '../abstracts/variables' as vars;
+.pagination{
+    button{
+        background-color: vars.$gray-bg;
+        border: 0;
+        color: vars.$color-white;
+        &:hover{
+            background-color: vars.$gray-400;
+            color: vars.$gray-900;
+        }
+    }
+}

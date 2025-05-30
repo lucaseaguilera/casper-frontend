@@ -1,0 +1,23 @@
+@use 'sass:map';
+  
+/// Mapa de breakpoints (mobile-first)
+$breakpoints: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px
+);
+
+/// Mixin para envolver contenido en @media (min-width: ...)
+/// Uso: @include respond-to(md) { … }
+@mixin respond-to($label) {
+  $point: map.get($breakpoints, $label);
+
+  @if $point {
+    @media (min-width: $point) {
+      @content;
+    }
+  } @else {
+    @warn "No existe el breakpoint `#{$label}` en $breakpoints.";
+  }
+}

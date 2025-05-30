@@ -1,0 +1,94 @@
+@use '../abstracts/variables' as vars;
+
+.stepper{
+  .mantine-Stepper-steps{
+    gap: 0;
+  }
+  .mantine-Stepper-separator{
+    background-color: vars.$color-primary;
+    height: 2px;
+    display: none;
+  }
+  .mantine-Stepper-step{
+      position: relative;
+      padding:0 2.5rem;
+      @media(max-width:767px){
+        padding:0 1rem;
+      }
+      @media(max-width:540px){
+        padding:0 .5rem;
+      }
+      &::before{
+        content:"";
+        position: absolute;
+        height: 1px;
+        width: 100%;
+        top: 22px;
+        background-color: vars.$text-muted;
+        left: 50%;
+        z-index: 0;
+      }
+      .mantine-Stepper-stepLabel{
+        color: vars.$text-muted;
+        font-size: 1.25rem;
+        position: relative;
+        z-index: 2;
+        @media(max-width:767px){
+          font-size: 1rem;
+        }
+      }
+      .mantine-Stepper-stepIcon{
+        position: relative;
+        font-size: 1.25rem;
+        background-color:vars.$bg-layout;
+        color: vars.$text-muted;
+        border-color: vars.$text-muted;
+        @media(max-width:767px){
+          font-size: 1rem;
+        }
+      }
+      &[data-progress='true']{
+        .mantine-Stepper-stepIcon{
+          color: vars.$gray-900;
+          background-color: vars.$color-primary;
+          border-color: vars.$color-primary;
+        }
+        .mantine-Stepper-stepLabel{
+          color: vars.$color-primary;
+        }
+         &::before{
+          background-color: vars.$color-primary;
+         }
+      }
+      &[data-completed='true']{
+        .mantine-Stepper-stepIcon{
+          background-color: vars.$bg-layout;
+          border-color: vars.$color-primary-dark;
+          .mantine-Stepper-stepCompletedIcon{
+            color: vars.$color-primary-dark;
+          }
+        }
+        .mantine-Stepper-stepLabel{
+          color: vars.$color-primary-dark;
+          opacity: .8;
+        }
+        &::before{
+          background-color: vars.$color-primary-dark;
+        }
+      }
+  }
+  .mantine-Stepper-steps{
+    justify-content: center;
+    .mantine-Stepper-step:last-child{
+      &::before{
+        display: none;
+      }
+    }
+  }
+  button{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 1rem; 
+  }
+}

@@ -1,0 +1,30 @@
+*{
+  transition: all 0.3s ease-in-out;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ul{
+  list-style: none;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill:focus {
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: #fff !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+  background-color: red;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f6fa;
+  color: #333;
+  overflow: hidden;
+}

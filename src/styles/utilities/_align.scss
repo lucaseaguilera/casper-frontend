@@ -1,0 +1,20 @@
+@use '../abstracts/breakpoints' as *;
+
+/// ---------- ALIGN ITEMS ----------
+.items-start         { align-items: flex-start     !important; }
+.items-center        { align-items: center         !important; }
+.items-end           { align-items: flex-end       !important; }
+.items-stretch       { align-items: stretch        !important; }
+.items-baseline      { align-items: baseline       !important; }
+
+/// ---------- JUSTIFY CONTENT ----------
+.justify-start       { justify-content: flex-start !important; }
+.justify-center      { justify-content: center     !important; }
+.justify-end         { justify-content: flex-end   !important; }
+.justify-between     { justify-content: space-between !important; }
+.justify-around      { justify-content: space-around  !important; }
+.justify-evenly      { justify-content: space-evenly  !important; }
+
+.text-center         { text-align: center; }
+.text-right          { text-align: right; }
+.text-left           { text-align: left; }

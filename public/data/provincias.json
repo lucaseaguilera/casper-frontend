@@ -1,0 +1,10 @@
+[
+  {
+    "provincia": "Córdoba",
+    "ciudades": ["Córdoba Capital", "Villa Carlos Paz", "Alta Gracia"]
+  },
+  {
+    "provincia": "Buenos Aires",
+    "ciudades": ["La Plata", "Mar del Plata", "Bahía Blanca"]
+  }
+]

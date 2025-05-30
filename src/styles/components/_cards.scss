@@ -1,0 +1,71 @@
+@use '../abstracts/variables' as vars;
+
+.client-card {
+  background: vars.$bg-card;
+  border: 1px solid vars.$border-disabled;
+  border-radius: vars.$radius-md;
+  padding: 1rem;
+  gap: 1rem;
+  box-shadow: none;
+  color: vars.$color-white;
+  &:hover{
+    border-color: vars.$border-active;
+     box-shadow: 0 8px 16px rgba(255, 255, 255, 0.05);
+  }
+  &__inner{
+    @media(max-width:540px){
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-wrap: wrap!important;
+    }
+  }
+  &__name{
+      position: relative;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: vars.$text-primary;
+      img{
+        position: relative;
+        right: -6px;
+        top: -6px;
+        width: 12px;
+        &.disabled{
+          mix-blend-mode: luminosity;
+        }
+      }
+  }
+  &__avatars {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .client-card__avatar {
+        border: 2px solid vars.$bg-card;  
+        transition: border-color .15s;
+        
+        &:not(:first-of-type) {
+          margin-left: -1.25rem;
+        }
+        
+        &:hover, &:focus {
+          z-index: 2;
+          border-color: vars.$color-primary;
+        }
+      }
+  }
+  &__data{
+    @media(max-width:767px){
+      flex-direction: column;
+      align-items: flex-start;
+    } 
+  }
+}
+.card {
+  background: vars.$bg-card;
+  border: 1px solid vars.$border-disabled;
+  border-radius: vars.$radius-md;
+  padding: 1rem;
+  gap: 1rem;
+  box-shadow: none;
+  color: vars.$color-white;
+}

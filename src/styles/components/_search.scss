@@ -1,0 +1,90 @@
+// _search.scss
+
+.search-wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+  
+    .react-select__control {
+      background-color: #2e3440; // fondo oscuro
+      border: none;
+      border-radius: 8px;
+      padding: 4px 8px;
+      color: white;
+      box-shadow: none;
+  
+      &:hover {
+        border: none;
+        box-shadow: 0 0 0 1px #5e81ac;
+      }
+    }
+  
+    .react-select__placeholder {
+      color: #888;
+    }
+  
+    .react-select__menu {
+      background-color: #2e3440;
+      color: white;
+      border-radius: 8px;
+      margin-top: 4px;
+      overflow: hidden;
+    }
+  
+    .react-select__group {
+      padding: 6px 12px;
+  
+      .react-select__group-heading {
+        font-weight: bold;
+        font-size: 0.85rem;
+        color: #ccc;
+        margin-top: 6px;
+        margin-bottom: 2px;
+      }
+    }
+  
+    .react-select__option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      cursor: pointer;
+  
+      &--is-selected,
+      &--is-focused {
+        background-color: #434c5e;
+      }
+  
+      &:hover {
+        background-color: #4c566a;
+      }
+    }
+  
+    .react-select__single-value {
+      color: white;
+    }
+  
+    .react-select__indicator-separator {
+      display: none;
+    }
+  
+    .react-select__dropdown-indicator {
+      color: white;
+    }
+    .custom-option {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 12px;
+        color: white;
+        cursor: pointer;
+      
+        &.focused {
+          background-color: #434c5e;
+        }
+      
+        .option-extra {
+          font-size: 0.8rem;
+          color: #aaa;
+        }
+      }      
+  }

@@ -1,0 +1,16 @@
+.settings-container{
+    width: 100%;
+    max-width: 740px;
+    margin:auto;
+}
+.checkbox-container{
+    @media(max-width:767px){
+        flex-direction: column;
+    }
+    .mantine-Stack-root{
+        @media(max-width:767px){
+            width: 100%;
+            max-width: inherit;
+        }
+    }
+}

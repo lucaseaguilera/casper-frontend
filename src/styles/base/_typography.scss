@@ -1,0 +1,76 @@
+@use 'sass:map';
+@use '../abstracts/variables' as vars;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+$font-families: (
+  roboto:  'Roboto, sans-serif',
+);
+$font-weights: (
+  light: 300,
+  normal: 400,
+  medium: 500,
+  bold:   700
+);
+
+/// Clases para weight
+@each $name, $weight in $font-weights {
+  .fw-#{$name} {
+    font-weight: $weight !important;
+  }
+}
+
+/// Escala tipográfica nominal (px)
+$heading-sizes: (
+  h1: 32px,
+  h2: 24px,
+  h3: 20px,
+  h4: 16px,
+  h5: 14px,
+  h6: 12px
+);
+
+/// Clases para headings
+@each $tag, $size in $heading-sizes {
+  .#{$tag} {
+    font-size:  $size !important;
+    font-weight: map.get($font-weights, bold) !important;
+    line-height: 1.2;
+  }
+}
+
+/// Utilidad de line-height
+.lh-1   { line-height: 1     !important; }
+.lh-1-5 { line-height: 1.5   !important; }
+.lh-2   { line-height: 2     !important; }
+
+.title-label{
+  font-size: 11px;
+  color: vars.$color-white;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.text-label{
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.3;
+  color: vars.$text-label;
+  opacity: .8;
+  &.sm{
+    font-size: 0.813rem;
+  }
+}
+.text-data{
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: vars.$color-white;
+  &.sm{
+    font-size: 0.875rem;
+  }
+}
+.truncate{
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

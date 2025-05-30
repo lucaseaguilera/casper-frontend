@@ -1,0 +1,94 @@
+// src/styles/utilities/_grid.scss
+@use 'sass:map';
+@use 'sass:math';
+
+@use '../abstracts/breakpoints' as *;
+
+// Tailwind-like Grid Utilities
+
+// Base grid display
+.grid         { display: grid         !important; }
+.inline-grid  { display: inline-grid  !important; }
+
+// Grid auto-flow
+.grid-flow-row         { grid-auto-flow: row        !important; }
+.grid-flow-col         { grid-auto-flow: column     !important; }
+.grid-flow-row-dense   { grid-auto-flow: row dense  !important; }
+.grid-flow-col-dense   { grid-auto-flow: column dense!important; }
+
+// Column & Row template
+.grid-cols-none        { grid-template-columns: none !important; }
+.grid-rows-none        { grid-template-rows: none    !important; }
+
+// Columns & Spans
+@for $n from 1 through 12 {
+  .grid-cols-#{$n} { grid-template-columns: repeat(#{$n}, minmax(0, 1fr))      !important; }
+  .col-span-#{$n}  { grid-column: span #{$n} / span #{$n}                     !important; }
+  .row-span-#{$n}  { grid-row: span #{$n} / span #{$n}                        !important; }
+}
+
+// Rows
+@for $n from 1 through 6 {
+  .grid-rows-#{$n} { grid-template-rows: repeat(#{$n}, minmax(0, 1fr))         !important; }
+}
+
+// Gaps Scale
+$gap-scale: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  8: 2rem,
+  10: 2.5rem,
+  12: 3rem,
+  16: 4rem,
+  20: 5rem,
+  24: 6rem,
+  32: 8rem
+);
+@each $key, $val in $gap-scale {
+  .gap-#{$key}   { gap:        $val !important; }
+  .gap-x-#{$key} { column-gap: $val !important; }
+  .gap-y-#{$key} { row-gap:    $val !important; }
+}
+
+// Responsive Variants
+@each $label in map.keys($breakpoints) {
+  @include respond-to($label) {
+    // Display
+    .#{$label}\:grid        { display: grid        !important; }
+    .#{$label}\:inline-grid { display: inline-grid !important; }
+
+    // Auto-flow
+    .#{$label}\:grid-flow-row       { grid-auto-flow: row        !important; }
+    .#{$label}\:grid-flow-col       { grid-auto-flow: column     !important; }
+    .#{$label}\:grid-flow-row-dense { grid-auto-flow: row dense  !important; }
+    .#{$label}\:grid-flow-col-dense { grid-auto-flow: column dense!important; }
+
+    // None templates
+    .#{$label}\:grid-cols-none { grid-template-columns: none !important; }
+    .#{$label}\:grid-rows-none { grid-template-rows: none    !important; }
+
+    // Columns & Spans
+    @for $n from 1 through 12 {
+      .#{$label}\:grid-cols-#{$n} { grid-template-columns: repeat(#{$n}, minmax(0, 1fr)) !important; }
+      .#{$label}\:col-span-#{$n}  { grid-column: span #{$n} / span #{$n}            !important; }
+      .#{$label}\:row-span-#{$n}  { grid-row: span #{$n} / span #{$n}               !important; }
+    }
+
+    // Rows
+    @for $n from 1 through 6 {
+      .#{$label}\:grid-rows-#{$n} { grid-template-rows: repeat(#{$n}, minmax(0, 1fr)) !important; }
+    }
+
+    // Gaps
+    @each $key, $val in $gap-scale {
+      .#{$label}\:gap-#{$key}   { gap:        $val !important; }
+      .#{$label}\:gap-x-#{$key} { column-gap: $val !important; }
+      .#{$label}\:gap-y-#{$key} { row-gap:    $val !important; }
+    }
+  }
+}
