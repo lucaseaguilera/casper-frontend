@@ -53,7 +53,7 @@ const Dashboard = () => {
     <Container fluid p="xl">
       <Title order={1} className='color-white' mb="md">Dashboard</Title>
       <Grid mb="8px" gutter={"16"} align="stretch" >
-        <Grid.Col span={4} style={{ height: 'auto' }}>
+        <Grid.Col span={{ base: 12, md: 4, lg: 4 }} style={{ height: 'auto' }}>
           <Card className='card' shadow="sm" style={{ height: '100%' }}>
             <Group  justify='space-between'>
               <Text className='title-dashboard' size='xl'>CLIENTES </Text>
@@ -83,7 +83,7 @@ const Dashboard = () => {
             </ResponsiveContainer>
           </Card>
         </Grid.Col>
-        <Grid.Col span={4} style={{ height: 'auto' }}>
+        <Grid.Col span={{ base: 12, md: 4, lg: 4 }} style={{ height: 'auto' }}>
           <Card className='card' shadow="sm" style={{ height: '100%' }}>
             <Group  justify='space-between'>
               <Text className='title-dashboard' size='xl'>MASCOTAS</Text>
@@ -109,7 +109,7 @@ const Dashboard = () => {
             </ResponsiveContainer>
           </Card>
         </Grid.Col>
-        <Grid.Col span={4} style={{ height: 'auto' }}>
+        <Grid.Col span={{ base: 12, md: 4, lg: 4 }} style={{ height: 'auto' }}>
           <Card className='card' shadow="sm" style={{ height: '100%' }}>
             <Text className='title-dashboard'>PRODUCTOS MÁS VENDIDOS</Text>
             <List
@@ -130,7 +130,7 @@ const Dashboard = () => {
         </Grid.Col>
       </Grid>
       <Grid mb="md">
-        <Grid.Col span={6} style={{ height: 'auto' }}>
+        <Grid.Col span={{ base: 12, md: 12, lg: 6 }} style={{ height: 'auto' }}>
           <Card className='card' shadow="sm" style={{ height: '100%' }}>
             <Text className='title-dashboard'>VENTAS MENSUALES</Text>
             <ResponsiveContainer width="100%" height={250}>
@@ -143,7 +143,7 @@ const Dashboard = () => {
             </ResponsiveContainer>
           </Card>
         </Grid.Col>
-         <Grid.Col span={6} style={{ height: 'auto' }}>
+         <Grid.Col span={{ base: 12, md: 12, lg: 6 }} style={{ height: 'auto' }}>
           <Card className='card' shadow="sm" style={{ height: '100%' }}>
             <Text className='title-dashboard'>CLIENTES POR PROVINCIA Y CIUDAD</Text>
             <ResponsiveContainer width="100%" height={300}>
