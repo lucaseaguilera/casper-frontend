@@ -50,7 +50,7 @@ const Sidebar = () => {
       <List className="app-sidebar__nav">
         <List.Item>
           <NavLink
-            to="/"
+            to="/dashboard"
             className={({ isActive }) =>
               `app-sidebar__link${isActive ? ' app-sidebar__link--active' : ''}`
             }

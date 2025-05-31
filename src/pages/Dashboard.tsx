@@ -17,8 +17,8 @@ const mockVacunas = [
 ];
 
 const dataClientesEstado = [
-  { tipo: 'Clientes actualizados', cantidad: 40 },
-  { tipo: 'Clientes sin actualizar', cantidad: 250 },
+  { tipo: 'Actualizados', cantidad: 40 },
+  { tipo: 'Sin actualizar', cantidad: 250 },
 ];
 
 
@@ -47,7 +47,7 @@ const dataClientesPorRegion = [
 ];
 
 const Dashboard = () => {
-  const COLORS = ['#4dabf7', '#74c0fc', '#a5d8ff'];
+  const COLORS = ['#6A748B', '#A4AEC4'];
 
   return (
     <Container fluid p="xl">
@@ -63,7 +63,7 @@ const Dashboard = () => {
               <Text size='md'>Actualizados: 40 </Text>
               <Text size='md'>Sin actualizar: 250</Text>
             </Group>
-            <ResponsiveContainer width="100%" height={250}>
+            <ResponsiveContainer width="100%" height={180}>
               <PieChart>
                 <Pie
                   dataKey="cantidad"
@@ -71,7 +71,8 @@ const Dashboard = () => {
                   cx="50%"
                   cy="50%"
                   outerRadius={80}
-                  label={({ tipo, cantidad }) => `${cantidad}`}
+                  stroke="#293040"
+                  label={({ tipo, cantidad }) => `${tipo}: ${cantidad}`}
                   nameKey="tipo"
                 >
                   {dataClientesEstado.map((entry, index) => (
@@ -96,6 +97,7 @@ const Dashboard = () => {
                   data={dataMascotasPorTipo}
                   cx="50%"
                   cy="50%"
+                  stroke="#293040"
                   outerRadius={80}
                   label={({ tipo, cantidad }) => `${tipo}: ${cantidad}`}
                   nameKey="tipo"
@@ -135,10 +137,14 @@ const Dashboard = () => {
             <Text className='title-dashboard'>VENTAS MENSUALES</Text>
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={dataVentasMensuales}>
-                <XAxis dataKey="mes" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="ventas" fill="#4dabf7" />
+                <XAxis dataKey="mes" stroke="#6A748B" tick={{ fill: '#6A748B' }}/>
+                <YAxis stroke="#6A748B" tick={{ fill: '#6A748B' }}/>
+                <Tooltip 
+                  contentStyle={{ backgroundColor: '#1A1B1E', borderColor: '#535C6F' }}
+                  itemStyle={{ color: '#ffffff' }}
+                  labelStyle={{ color: '#ffffff' }}
+                />
+                <Bar dataKey="ventas" fill="#6A748B" />
               </BarChart>
             </ResponsiveContainer>
           </Card>
@@ -148,10 +154,14 @@ const Dashboard = () => {
             <Text className='title-dashboard'>CLIENTES POR PROVINCIA Y CIUDAD</Text>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={dataClientesPorRegion} layout="vertical">
-                <XAxis type="number" />
-                <YAxis dataKey="region" type="category" width={160} />
-                <Tooltip />
-                <Bar dataKey="cantidad" fill="#82c91e" barSize={12} />
+                <XAxis type="number" stroke="#6A748B" tick={{ fill: '#6A748B' }}/>
+                <YAxis dataKey="region" type="category" width={160} stroke="#6A748B" tick={{ fill: '#6A748B' }}/>
+                <Tooltip 
+                  contentStyle={{ backgroundColor: '#1A1B1E', borderColor: '#535C6F' }}
+                  itemStyle={{ color: '#ffffff' }}
+                  labelStyle={{ color: '#ffffff' }}
+                />
+                <Bar dataKey="cantidad" fill="#6A748B" barSize={12} />
               </BarChart>
             </ResponsiveContainer>
           </Card>
