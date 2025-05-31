@@ -4,12 +4,14 @@ import '@mantine/core/styles.css';
 import './styles/styles.scss';
 import Layout from './components/Layout';
 import Login from './pages/Login';
+import RecuperarClave from './pages/RecuperarClave';
 import Dashboard from './pages/Dashboard';
 import Clientes from './pages/Clientes';
 import ClienteWizard from './pages/ClienteWizard';
 import ClienteDetalle from './pages/ClienteDetalle';
 import Configuracion from './pages/Configuracion';
 import UsuarioPerfil from './pages/UsuarioPerfil';
+import NotFound from './pages/NotFound';
 import { createTheme, MantineProvider } from '@mantine/core';
 
 const theme = createTheme({
@@ -32,6 +34,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="recuperar-acceso" element={<RecuperarClave />} />
+          <Route path="*" element={<NotFound />} />
           <Route
             path="/*"
             element={

@@ -35,7 +35,7 @@ function Login() {
       // Simulate API login request
       new Promise((resolve) => {
         setTimeout(() => {
-          if (email === 'roque@mail.com' && password === '123456') {
+          if (email === 'roque@mail.com' && password === '#123456#') {
             resolve(true);
           } else {
             resolve(false);
@@ -86,7 +86,7 @@ function Login() {
             <Button className='button primary' type='submit'>
               Ingresar
             </Button>
-            <Anchor href="/recuperar-clave" target="_blank" ta="center" underline="hover" className='button text d-inline-flex m-auto'>Recuperar clave de acceso</Anchor>
+            <Anchor href="/recuperar-acceso" ta="center" underline="hover" className='button text d-inline-flex m-auto'>Recuperar clave de acceso</Anchor>
           </Stack>
         </form>
       </Container>

@@ -28,7 +28,7 @@ export default function Configuracion() {
   });
   
   return (
-    <Container fluid p="0"  className='d-flex d-flex-column gap-6 page-full-height'>
+    <Container fluid p="0">
       <Group 
         grow 
         justify='space-between' 
@@ -46,7 +46,7 @@ export default function Configuracion() {
           <Title order={2} className="header__title-name color-white">Configuración general</Title>
         </Group> 
       </Group>
-      <Stack p="lg" align="stretch" justify="center">
+      <Stack p="lg" align="stretch" mt="xl" justify="center">
           <form className='settings-container'>
             <Stack spacing="md" className='settings'>
               <Stack mb="xl">
