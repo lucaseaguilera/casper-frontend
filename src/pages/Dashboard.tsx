@@ -175,7 +175,7 @@ const Dashboard = () => {
               <Table.Thead>
                 <Table.Tr>
                   <Table.Th>Vacuna</Table.Th>
-                  <Table.Th>Fecha</Table.Th>
+                  <Table.Th>Fecha estimada de aplicación</Table.Th>
                   <Table.Th>Cliente</Table.Th>
                   <Table.Th>Mascota</Table.Th>
                 </Table.Tr>
