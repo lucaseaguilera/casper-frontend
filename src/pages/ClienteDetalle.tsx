@@ -17,6 +17,8 @@ import {
   ActionIcon,
   Stack,
   Anchor,
+  Modal,
+  ScrollArea,
 } from '@mantine/core';
 import IconCaret from '/assets/icons/icon-caret.svg';
 import PlaceholderNoResults from '/assets/placeholders/no-results.svg';
@@ -345,6 +347,21 @@ export default function ClienteDetalle() {
   const [sortField, setSortField] = useState<keyof Compra>('fecha');
   const [sortAsc, setSortAsc] = useState<boolean>(false);
 
+  // Estado para controlar el modal de tipo
+  const [modalTipo, setModalTipo] = useState<string | null>(null);
+  const [modalMascota, setModalMascota] = useState<Mascota | null>(null);
+
+  // Funciones openModal y closeModal dentro del componente para acceder al estado
+  const openModal = (tipo: string, mascota: Mascota) => {
+    setModalTipo(tipo);
+    setModalMascota(mascota);
+  };
+  const closeModal = () => {
+    setModalTipo(null);
+    setModalMascota(null);
+  };
+
+
   useEffect(() => {
     const data = mockClientes.find((c) => c.id === Number(id));
     if (data) {
@@ -402,6 +419,99 @@ export default function ClienteDetalle() {
 
   return (
     <Container fluid p="0" className='d-flex d-flex-column gap-6 page-full-height'>
+      <Modal
+        opened={!!modalTipo}
+        onClose={closeModal}
+        size="xl"
+        radius="lg"
+        scrollAreaComponent={ScrollArea.Autosize}
+        title={
+          modalTipo
+            ? `Listado completo de ${
+                modalTipo === 'vacunas'
+                  ? 'Vacunas aplicadas'
+                  : modalTipo === 'antiparasitarios'
+                  ? 'Anti-parasitarios aplicados'
+                  : modalTipo === 'intervenciones_medicas'
+                  ? 'Intervenciones médicas'
+                  : modalTipo === 'otros_tratamientos'
+                  ? 'Otros tratamientos'
+                  : modalTipo === 'corte_banio'
+                  ? 'Corte y Baño'
+                  : modalTipo
+              }`
+            : ''
+        }
+      >
+        <Stack>
+          <ScrollArea>
+            {modalTipo && modalMascota && (() => {
+              let items: any[] = [];
+              // Use a valid function declaration and a valid container (Box from @mantine/core)
+              const renderFn = (item: any, index: number) => {
+                if (modalTipo === 'corte_banio') {
+                  return (
+                    <Group key={index} className='item-modal'>
+                    <div className='d-flex d-flex-column items-start gap-0'>
+                      <Text className='item-modal-title'>{item.nombre}</Text>
+                      {item.tipo && <Text className='item-modal-subtitle'>{item.tipo}</Text>}
+                      {item.detalle && <Text className='item-modal-subtitle'>{item.detalle}</Text>}
+                    </div>
+                    {item.fecha && (
+                      <Text className='item-modal-date'>
+                        <svg className='icon-button' height={16} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 16">
+                          <path d="M13,1h-2V0h-1v1h-5V0h-1v1h-2C.9,1,0,1.9,0,3v11c0,1.1.9,2,2,2h11c1.1,0,2-.9,2-2V3c0-1.1-.9-2-2-2ZM14,14c0,.55-.45,1-1,1H2c-.55,0-1-.45-1-1v-7.5h13v7.5ZM14,5.5H1v-2.5c0-.55.45-1,1-1h2v2h1v-2h5v2h1v-2h2c.55,0,1,.45,1,1v2.5Z" fill="#fff"/>
+                        </svg>
+                        <span style={{ marginLeft: 8 }}>{item.fecha}</span>
+                      </Text>
+                    )}
+                  </Group>
+                  );
+                }
+                return (
+                  <Group key={index} className='item-modal'>
+                    <div className='d-flex d-flex-column items-start gap-0'>
+                      <Text className='item-modal-title'>{item.nombre}</Text>
+                      {item.tipo && <Text className='item-modal-subtitle'>{item.tipo}</Text>}
+                      {item.detalle && <Text className='item-modal-subtitle'>{item.detalle}</Text>}
+                    </div>
+                    {item.fecha && (
+                      <Text className='item-modal-date'>
+                        <svg className='icon-button' height={16} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 16">
+                          <path d="M13,1h-2V0h-1v1h-5V0h-1v1h-2C.9,1,0,1.9,0,3v11c0,1.1.9,2,2,2h11c1.1,0,2-.9,2-2V3c0-1.1-.9-2-2-2ZM14,14c0,.55-.45,1-1,1H2c-.55,0-1-.45-1-1v-7.5h13v7.5ZM14,5.5H1v-2.5c0-.55.45-1,1-1h2v2h1v-2h5v2h1v-2h2c.55,0,1,.45,1,1v2.5Z" fill="#fff"/>
+                        </svg>
+                        <span style={{ marginLeft: 8 }}>{item.fecha}</span>
+                      </Text>
+                    )}
+                  </Group>
+                );
+              };
+              switch (modalTipo) {
+                case 'vacunas':
+                  items = modalMascota.salud.vacunas_aplicadas;
+                  break;
+                case 'antiparasitarios':
+                  items = modalMascota.salud.antiparasitarios_aplicados;
+                  break;
+                case 'intervenciones_medicas':
+                  items = modalMascota.salud.intervenciones_medicas;
+                  break;
+                case 'otros_tratamientos':
+                  items = modalMascota.salud.otros_tratamientos;
+                  break;
+                case 'corte_banio':
+                  items = modalMascota.servicios.corte_banio;
+                  break;
+                default:
+                  items = [];
+              }
+              return items.length > 0
+                ? items.map(renderFn)
+                : <Text size="sm" c="dimmed">No hay registros para mostrar.</Text>;
+            })()}
+          </ScrollArea>
+        </Stack>
+      </Modal>
       <Group 
         grow 
         justify='space-between' 
@@ -765,24 +875,34 @@ export default function ClienteDetalle() {
                                             </Text>
 
                                             {m.salud.vacunas_aplicadas.length > 0 ? (
-                                              <List
-                                              spacing="xs"
-                                              >
-                                              {m.salud.vacunas_aplicadas.map((v, i) => (
-                                                  <List.Item key={i} className='item-list'>
-                                                    <Group className='d-flex d-flex-column items-start gap-0'>
-                                                      <Text className='item-list-title'>{v.nombre}</Text>
-                                                      <Text  className='item-list-subtitle'>{v.detalle}</Text>
-                                                    </Group>
-                                                    <Text className='item-list-date'>
-                                                      <svg className='icon-button' height={16} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 16">
-                                                        <path d="M13,1h-2V0h-1v1h-5V0h-1v1h-2C.9,1,0,1.9,0,3v11c0,1.1.9,2,2,2h11c1.1,0,2-.9,2-2V3c0-1.1-.9-2-2-2ZM14,14c0,.55-.45,1-1,1H2c-.55,0-1-.45-1-1v-7.5h13v7.5ZM14,5.5H1v-2.5c0-.55.45-1,1-1h2v2h1v-2h5v2h1v-2h2c.55,0,1,.45,1,1v2.5Z" fill="#fff"/>
-                                                      </svg>
-                                                      <span style={{ marginLeft: 8 }}>{v.fecha}</span>
-                                                    </Text>
-                                                  </List.Item>
-                                              ))}
-                                              </List>
+                                                                                           <>
+                                                <List spacing="xs">
+                                                  {m.salud.vacunas_aplicadas.slice(0, 5).map((v, i) => (
+                                                    <List.Item key={i} className='item-list'>
+                                                      <Group className='d-flex d-flex-column items-start gap-0'>
+                                                        <Text className='item-list-title'>{v.nombre}</Text>
+                                                        <Text className='item-list-subtitle'>{v.detalle}</Text>
+                                                      </Group>
+                                                      <Text className='item-list-date'>
+                                                        <svg className='icon-button' height={16} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 16">
+                                                          <path d="M13,1h-2V0h-1v1h-5V0h-1v1h-2C.9,1,0,1.9,0,3v11c0,1.1.9,2,2,2h11c1.1,0,2-.9,2-2V3c0-1.1-.9-2-2-2ZM14,14c0,.55-.45,1-1,1H2c-.55,0-1-.45-1-1v-7.5h13v7.5ZM14,5.5H1v-2.5c0-.55.45-1,1-1h2v2h1v-2h5v2h1v-2h2c.55,0,1,.45,1,1v2.5Z" fill="#fff"/>
+                                                        </svg>
+                                                        <span style={{ marginLeft: 8 }}>{v.fecha}</span>
+                                                      </Text>
+                                                    </List.Item>
+                                                  ))}
+                                                </List>
+                                                {m.salud.vacunas_aplicadas.length > 5 && (
+                                                  <Button
+                                                    size="xs"
+                                                    variant="outline"
+                                                    className="button primary outline sm mt-3 show-all"
+                                                    onClick={() => openModal('vacunas', m)}
+                                                  >
+                                                    <span>Ver todas</span>
+                                                  </Button>
+                                                )}
+                                              </>
                                             ) : (
                                                 <Text className='text-placeholder' size='sm'>Aún no se registraron vacunas aplicadas.</Text>
                                               )
@@ -806,28 +926,37 @@ export default function ClienteDetalle() {
                                         <Accordion.Panel>
 
                                             {m.salud.antiparasitarios_aplicados.length > 0 ? (
-                                              <List
-                                              spacing="xs"
-                                              >
-                                              {m.salud.antiparasitarios_aplicados.map((v, i) => (
-                                                  <List.Item key={i} className='item-list'>
-                                                    <Group className='d-flex d-flex-column items-start gap-0'>
-                                                      <Text className='item-list-title'>{v.nombre}</Text>
-                                                      <Text  className='item-list-subtitle'>{v.detalle}</Text>
-                                                    </Group>
-                                                    <Text className='item-list-date'>
-                                                      <svg className='icon-button' height={16} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 16">
-                                                        <path d="M13,1h-2V0h-1v1h-5V0h-1v1h-2C.9,1,0,1.9,0,3v11c0,1.1.9,2,2,2h11c1.1,0,2-.9,2-2V3c0-1.1-.9-2-2-2ZM14,14c0,.55-.45,1-1,1H2c-.55,0-1-.45-1-1v-7.5h13v7.5ZM14,5.5H1v-2.5c0-.55.45-1,1-1h2v2h1v-2h5v2h1v-2h2c.55,0,1,.45,1,1v2.5Z" fill="#fff"/>
-                                                      </svg>
-                                                      <span style={{ marginLeft: 8 }}>{v.fecha}</span>
-                                                    </Text>
-                                                  </List.Item>
-                                              ))}
-                                              </List>
-                                              ) : (
-                                                <Text className='text-placeholder' size='sm'>Aún no se registraron anti-parasitarios aplicados.</Text>
-                                              )
-                                            }
+                                                                                            <>
+                                                <List spacing="xs">
+                                                  {m.salud.antiparasitarios_aplicados.slice(0, 5).map((v, i) => (
+                                                    <List.Item key={i} className='item-list'>
+                                                      <Group className='d-flex d-flex-column items-start gap-0'>
+                                                        <Text className='item-list-title'>{v.nombre}</Text>
+                                                        <Text className='item-list-subtitle'>{v.detalle}</Text>
+                                                      </Group>
+                                                      <Text className='item-list-date'>
+                                                        <svg className='icon-button' height={16} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 16">
+                                                          <path d="M13,1h-2V0h-1v1h-5V0h-1v1h-2C.9,1,0,1.9,0,3v11c0,1.1.9,2,2,2h11c1.1,0,2-.9,2-2V3c0-1.1-.9-2-2-2ZM14,14c0,.55-.45,1-1,1H2c-.55,0-1-.45-1-1v-7.5h13v7.5ZM14,5.5H1v-2.5c0-.55.45-1,1-1h2v2h1v-2h5v2h1v-2h2c.55,0,1,.45,1,1v2.5Z" fill="#fff"/>
+                                                        </svg>
+                                                        <span style={{ marginLeft: 8 }}>{v.fecha}</span>
+                                                      </Text>
+                                                    </List.Item>
+                                                  ))}
+                                                </List>
+                                                {m.salud.antiparasitarios_aplicados.length > 5 && (
+                                                  <Button
+                                                    size="xs"
+                                                    variant="outline"
+                                                    className="button primary outline sm mt-3 show-all"
+                                                    onClick={() => openModal('antiparasitarios', m)}
+                                                  >
+                                                    <span>Ver todas</span>
+                                                  </Button>
+                                                )}
+                                              </>
+                                            ) : (
+                                              <Text className='text-placeholder' size='sm'>Aún no se registraron anti-parasitarios aplicados.</Text>
+                                            )}
                                         </Accordion.Panel>
                                       </Accordion.Item>
 
@@ -846,24 +975,34 @@ export default function ClienteDetalle() {
                                         </Accordion.Control>
                                         <Accordion.Panel>
                                             {m.salud.intervenciones_medicas.length > 0 ? (
-                                              <List
-                                              spacing="xs"
-                                              >
-                                              {m.salud.intervenciones_medicas.map((v, i) => (
-                                                  <List.Item key={i} className='item-list'>
-                                                    <Group className='d-flex d-flex-column items-start gap-0'>
-                                                      <Text className='item-list-title'>{v.nombre}</Text>
-                                                      <Text  className='item-list-subtitle'>{v.detalle}</Text>
-                                                    </Group>
-                                                    <Text className='item-list-date'>
-                                                      <svg className='icon-button' height={16} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 16">
-                                                        <path d="M13,1h-2V0h-1v1h-5V0h-1v1h-2C.9,1,0,1.9,0,3v11c0,1.1.9,2,2,2h11c1.1,0,2-.9,2-2V3c0-1.1-.9-2-2-2ZM14,14c0,.55-.45,1-1,1H2c-.55,0-1-.45-1-1v-7.5h13v7.5ZM14,5.5H1v-2.5c0-.55.45-1,1-1h2v2h1v-2h5v2h1v-2h2c.55,0,1,.45,1,1v2.5Z" fill="#fff"/>
-                                                      </svg>
-                                                      <span style={{ marginLeft: 8 }}>{v.fecha}</span>
-                                                    </Text>
-                                                  </List.Item>
-                                              ))}
-                                              </List>
+                                                                                            <>
+                                                <List spacing="xs">
+                                                  {m.salud.intervenciones_medicas.slice(0, 5).map((v, i) => (
+                                                    <List.Item key={i} className='item-list'>
+                                                      <Group className='d-flex d-flex-column items-start gap-0'>
+                                                        <Text className='item-list-title'>{v.nombre}</Text>
+                                                        <Text className='item-list-subtitle'>{v.detalle}</Text>
+                                                      </Group>
+                                                      <Text className='item-list-date'>
+                                                        <svg className='icon-button' height={16} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 16">
+                                                          <path d="M13,1h-2V0h-1v1h-5V0h-1v1h-2C.9,1,0,1.9,0,3v11c0,1.1.9,2,2,2h11c1.1,0,2-.9,2-2V3c0-1.1-.9-2-2-2ZM14,14c0,.55-.45,1-1,1H2c-.55,0-1-.45-1-1v-7.5h13v7.5ZM14,5.5H1v-2.5c0-.55.45-1,1-1h2v2h1v-2h5v2h1v-2h2c.55,0,1,.45,1,1v2.5Z" fill="#fff"/>
+                                                        </svg>
+                                                        <span style={{ marginLeft: 8 }}>{v.fecha}</span>
+                                                      </Text>
+                                                    </List.Item>
+                                                  ))}
+                                                </List>
+                                                {m.salud.intervenciones_medicas.length > 5 && (
+                                                  <Button
+                                                    size="xs"
+                                                    variant="outline"
+                                                    className="button primary outline sm mt-3 show-all"
+                                                    onClick={() => openModal('intervenciones_medicas', m)}
+                                                  >
+                                                    <span>Ver todas</span>
+                                                  </Button>
+                                                )}
+                                              </>
                                             ) : (
                                                 <Text className='text-placeholder' size='sm'>Aún no se registraron intervenciones médicas.</Text>
                                               )
@@ -887,28 +1026,37 @@ export default function ClienteDetalle() {
                                         <Accordion.Panel>
 
                                             {m.salud.otros_tratamientos.length > 0 ? (
-                                              <List
-                                              spacing="xs"
-                                              >
-                                              {m.salud.otros_tratamientos.map((v, i) => (
-                                                  <List.Item key={i} className='item-list'>
-                                                    <Group className='d-flex d-flex-column items-start gap-0'>
-                                                      <Text className='item-list-title'>{v.nombre}</Text>
-                                                      <Text  className='item-list-subtitle'>{v.detalle}</Text>
-                                                    </Group>
-                                                    <Text className='item-list-date'>
-                                                      <svg className='icon-button' height={16} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 16">
-                                                        <path d="M13,1h-2V0h-1v1h-5V0h-1v1h-2C.9,1,0,1.9,0,3v11c0,1.1.9,2,2,2h11c1.1,0,2-.9,2-2V3c0-1.1-.9-2-2-2ZM14,14c0,.55-.45,1-1,1H2c-.55,0-1-.45-1-1v-7.5h13v7.5ZM14,5.5H1v-2.5c0-.55.45-1,1-1h2v2h1v-2h5v2h1v-2h2c.55,0,1,.45,1,1v2.5Z" fill="#fff"/>
-                                                      </svg>
-                                                      <span style={{ marginLeft: 8 }}>{v.fecha}</span>
-                                                    </Text>
-                                                  </List.Item>
-                                              ))}
-                                              </List>
-                                              ) : (
-                                                <Text className='text-placeholder' size='sm'>Aún no se registraron tratamientos médicos adicionales.</Text>
-                                              )
-                                            }
+                                                                                            <>
+                                                <List spacing="xs">
+                                                  {m.salud.otros_tratamientos.slice(0, 5).map((v, i) => (
+                                                    <List.Item key={i} className='item-list'>
+                                                      <Group className='d-flex d-flex-column items-start gap-0'>
+                                                        <Text className='item-list-title'>{v.nombre}</Text>
+                                                        <Text className='item-list-subtitle'>{v.detalle}</Text>
+                                                      </Group>
+                                                      <Text className='item-list-date'>
+                                                        <svg className='icon-button' height={16} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 16">
+                                                          <path d="M13,1h-2V0h-1v1h-5V0h-1v1h-2C.9,1,0,1.9,0,3v11c0,1.1.9,2,2,2h11c1.1,0,2-.9,2-2V3c0-1.1-.9-2-2-2ZM14,14c0,.55-.45,1-1,1H2c-.55,0-1-.45-1-1v-7.5h13v7.5ZM14,5.5H1v-2.5c0-.55.45-1,1-1h2v2h1v-2h5v2h1v-2h2c.55,0,1,.45,1,1v2.5Z" fill="#fff"/>
+                                                        </svg>
+                                                        <span style={{ marginLeft: 8 }}>{v.fecha}</span>
+                                                      </Text>
+                                                    </List.Item>
+                                                  ))}
+                                                </List>
+                                                {m.salud.otros_tratamientos.length > 5 && (
+                                                  <Button
+                                                    size="xs"
+                                                    variant="outline"
+                                                    className="button primary outline sm mt-3 show-all"
+                                                    onClick={() => openModal('otros_tratamientos', m)}
+                                                  >
+                                                    <span>Ver todas</span>
+                                                  </Button>
+                                                )}
+                                              </>
+                                            ) : (
+                                              <Text className='text-placeholder' size='sm'>Aún no se registraron tratamientos médicos adicionales.</Text>
+                                            )}
                                         </Accordion.Panel>
                                       </Accordion.Item>
 
@@ -932,28 +1080,37 @@ export default function ClienteDetalle() {
                                         <Accordion.Panel>
 
                                             {m.servicios.corte_banio.length > 0 ? (
-                                              <List
-                                              spacing="xs"
-                                              >
-                                              {m.servicios.corte_banio.map((v, i) => (
-                                                  <List.Item key={i} className='item-list'>
-                                                    <Group className='d-flex d-flex-column items-start gap-0'>
-                                                      <Text className='item-list-title'>{v.tipo}</Text>
-                                                      <Text  className='item-list-subtitle'>{v.detalle}</Text>
-                                                    </Group>
-                                                    <Text className='item-list-date'>
-                                                      <svg className='icon-button' height={16} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 16">
-                                                        <path d="M13,1h-2V0h-1v1h-5V0h-1v1h-2C.9,1,0,1.9,0,3v11c0,1.1.9,2,2,2h11c1.1,0,2-.9,2-2V3c0-1.1-.9-2-2-2ZM14,14c0,.55-.45,1-1,1H2c-.55,0-1-.45-1-1v-7.5h13v7.5ZM14,5.5H1v-2.5c0-.55.45-1,1-1h2v2h1v-2h5v2h1v-2h2c.55,0,1,.45,1,1v2.5Z" fill="#fff"/>
-                                                      </svg>
-                                                      <span style={{ marginLeft: 8 }}>{v.fecha}</span>
-                                                    </Text>
-                                                  </List.Item>
-                                              ))}
-                                              </List>
-                                               ) : (
-                                                <Text className='text-placeholder' size='sm'>Aún no se registraron baños o cortes.</Text>
-                                              )
-                                            }
+                                                                                            <>
+                                                <List spacing="xs">
+                                                  {m.servicios.corte_banio.slice(0, 5).map((v, i) => (
+                                                    <List.Item key={i} className='item-list'>
+                                                      <Group className='d-flex d-flex-column items-start gap-0'>
+                                                        <Text className='item-list-title'>{v.tipo}</Text>
+                                                        <Text className='item-list-subtitle'>{v.detalle}</Text>
+                                                      </Group>
+                                                      <Text className='item-list-date'>
+                                                        <svg className='icon-button' height={16} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 16">
+                                                          <path d="M13,1h-2V0h-1v1h-5V0h-1v1h-2C.9,1,0,1.9,0,3v11c0,1.1.9,2,2,2h11c1.1,0,2-.9,2-2V3c0-1.1-.9-2-2-2ZM14,14c0,.55-.45,1-1,1H2c-.55,0-1-.45-1-1v-7.5h13v7.5ZM14,5.5H1v-2.5c0-.55.45-1,1-1h2v2h1v-2h5v2h1v-2h2c.55,0,1,.45,1,1v2.5Z" fill="#fff"/>
+                                                        </svg>
+                                                        <span style={{ marginLeft: 8 }}>{v.fecha}</span>
+                                                      </Text>
+                                                    </List.Item>
+                                                  ))}
+                                                </List>
+                                                {m.servicios.corte_banio.length > 5 && (
+                                                  <Button
+                                                    size="xs"
+                                                    variant="outline"
+                                                    className="button primary outline sm mt-3 show-all"
+                                                    onClick={() => openModal('corte_banio', m)}
+                                                  >
+                                                    <span>Ver todas</span>
+                                                  </Button>
+                                                )}
+                                              </>
+                                            ) : (
+                                              <Text className='text-placeholder' size='sm'>Aún no se registraron baños o cortes.</Text>
+                                            )}
                                         </Accordion.Panel>
                                       </Accordion.Item>
                                     
